@@ -10,27 +10,27 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class Click {
     private WebDriver driver;
     @BeforeClass
     public void setUp() {
         driver = new Driver(DriverName.CHROME).getWebDriver();
-        driver.get("http://uitestingplayground.com/home");
+        driver.get("http://uitestingplayground.com/click");
     }
 
     @Test
     public void test() {
-        String initialButtonText = "Botón que ignora el evento de clic de DOM";
-        driver.findElement(By.xpath("//a[@href='/click']")).click();
+        String initialButtonText = "Button That Ignores DOM Click Event";
         driver.findElement(By.xpath("//button[@id='badButton']")).click();
         String secondButtonText = driver.findElement(By.xpath("//button[@id='badButton']")).getText();
-        assertFalse(initialButtonText.equals(secondButtonText),"SuccesFull");
+        assertTrue(initialButtonText.equals(secondButtonText),"SuccessFull");
     }
 
     @AfterClass
     public void tearDown() {
-        //driver.close();
-        //driver.quit();
+        driver.close();
+        driver.quit();
     }
 }
