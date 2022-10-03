@@ -5,6 +5,7 @@ import controlerDriver.DriverName;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -22,15 +23,17 @@ public class ClassAttribute {
 
     @Test
     public void test() {
+        WebElement button = null;
         try{
-            driver.findElement(By.xpath("//button[contains(@class, \"btn-primary\")]")).click();
+            button = driver.findElement(By.xpath("//button[contains(@class, \"btn-primary\")]"));
+            button.click();
             Thread.sleep(3000);
             Alert alert = driver.switchTo().alert();
             alert.accept();
             Thread.sleep(3000);
-            assertNotNull(driver.findElement(By.xpath("//button[contains(@class, \"btn-primary\")]")), "Button identified");
+            assertNotNull(button, "Button identified");
         }catch (Exception e){
-            assertNotNull(driver.findElement(By.xpath("//button[contains(@class, \"btn-primary\")]")), "Button not identified");
+            assertNotNull(button, "Button not identified");
         }
     }
 
